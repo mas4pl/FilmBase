@@ -21,8 +21,17 @@ def user_login(request):
   else:
     form = LoginForm()
   return render(request, 'addfilms/login.html', {'form': form})
-          
-  
+
+
+def filldb(request):
+  f = open("addfilms/static/addfilms/title.akas.tsv")
+
+  line = f.readline()
+  line = f.readline()
+
+  f.close()
+  return HttpResponse("{}".format(line))
+
 
 #def index(request):
   #return HttpResponse("kiedys to moze bedzie baza filmow :)")
