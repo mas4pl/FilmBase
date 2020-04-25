@@ -24,10 +24,24 @@ def user_login(request):
 
 
 def filldb(request):
-  f = open("addfilms/static/addfilms/title.akas.tsv")
+  f = open("addfilms/static/addfilms/movies.csv", encoding="utf8").read()
+ lines = f.split('\n')
 
-  line = f.readline()
-  line = f.readline()
+ base = []
+ nr = 1
+ for line in lines[1:]:
+     x = line.split(',')
+     x2 = x[1].split(' (')
+
+     film = []
+     film.append(nr)
+     film.append(x2[0])
+     film.append(x2[1].strip(')'))
+     film.append(x[2])
+     base.append(film)
+     
+     print(film)
+     nr+=1
 
   f.close()
   return HttpResponse("{}".format(line))
