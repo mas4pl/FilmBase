@@ -24,19 +24,20 @@ def user_login(request):
 
 
 def filldb(request):
-  f = open("addfilms/static/addfilms/movies.csv", encoding="utf8").read()
-  lines = f.split('\n')
+  f = open("addfilms/static/addfilms/movies.csv", encoding="utf8")
+  f2 = f.read()
+  lines = f2.split('\n')
 
   base = []
   nr = 1
-for line in lines[1:]:
-  if nr == (len(lines)-2):
-    break
+  for line in lines[1:]:
+    if nr == (len(lines)-2):
+      break
 
-  x = line.split(',')
+    x = line.split(',')
 
-  film = []
-  film.append(nr)
+    film = []
+    film.append(nr)
     if len(x) > 3:
       x2 = x[1] + ', The'
       film.append(x2)
