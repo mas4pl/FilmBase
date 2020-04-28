@@ -25,26 +25,34 @@ def user_login(request):
 
 def filldb(request):
   f = open("addfilms/static/addfilms/movies.csv", encoding="utf8").read()
- lines = f.split('\n')
+  lines = f.split('\n')
 
- base = []
- nr = 1
- for line in lines[1:]:
-     x = line.split(',')
-     x2 = x[1].split(' (')
+  base = []
+  nr = 1
+for line in lines[1:]:
+  if nr == (len(lines)-2):
+    break
 
-     film = []
-     film.append(nr)
-     film.append(x2[0])
-     film.append(x2[1].strip(')'))
-     film.append(x[2])
-     base.append(film)
-     
-     print(film)
-     nr+=1
+  x = line.split(',')
+
+  film = []
+  film.append(nr)
+    if len(x) > 3:
+      x2 = x[1] + ', The'
+      film.append(x2)
+    else:
+      x2 =str(x[1])
+      for i in x2[-1:-7]:
+        x2.remove(x2[i])
+      film.append(x2)
+
+    film.append(x[-1])
+    base.append(film)
+    print(film)
+    nr+=1
 
   f.close()
-  return HttpResponse("{}".format(line))
+  return HttpResponse("{}".format(base))
 
 
 #def index(request):
