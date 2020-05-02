@@ -37,22 +37,36 @@ def filldb(request):
     x = line.split(',')
 
     film = []
-    film.append(nr)
+    #film.append(nr)
     if len(x) > 3:
       x2 = x[1] + ', The'
+      x2 = x2.strip('"')
+      x3 = x[2].split(' (')
+      x4 = x3[-1].strip(')"')
       film.append(x2)
+      film.append(x4)
     else:
-      x2 =str(x[1])
-      for i in x2[-1:-7]:
-        x2.remove(x2[i])
-      film.append(x2)
+      x2 = x[1].split(' (')
+      x3 = x2[0]
+      x4 = x2[-1].strip(')')
+      film.append(x3)
+      film.append(x4)
 
     film.append(x[-1])
     base.append(film)
     print(film)
-    nr+=1
+    #nr+=1
 
   f.close()
+
+  for film_to_base in base:
+    m_serch = Movie.objects.filter(title=film_to_base[0], year=film_to_base[1], gener=film_to_base[2])
+    if len(m_serch) > 0:
+      continue
+    else:
+      m = Movie(title=film_to_base[0], year=film_to_base[1], gener=film_to_base[2])
+      m.save()  
+
   return HttpResponse("{}".format(base))
 
 
