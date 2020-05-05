@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
@@ -73,3 +75,11 @@ def filldb(request):
 
 #def index(request):
   #return HttpResponse("kiedys to moze bedzie baza filmow :)")
+
+
+
+def filldb2(request):
+  f = open("addfilms/static/addfilms/movies/2018/isle-of-dogs.json")
+  m = json.load(f)
+  f.close()
+  return HttpResponse("{}".format(m["director"]))
