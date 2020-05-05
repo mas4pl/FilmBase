@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .forms import LoginFrom
+from .models import Movie
 
 def user_login(request):
   if request.method == 'POST':
