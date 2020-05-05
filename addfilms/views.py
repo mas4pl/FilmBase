@@ -45,7 +45,7 @@ def filldb(request):
       x4 = x3[-1].strip(')"')
       film.append(x2)
       film.append(x4)
-    else:
+    elif len(x) > 2:
       x2 = x[1].split(' (')
       x3 = x2[0]
       x4 = x2[-1].strip(')')
@@ -65,7 +65,7 @@ def filldb(request):
       continue
     else:
       m = Movie(title=film_to_base[0], year=film_to_base[1], gener=film_to_base[2])
-      m.save()  
+      m.save()
 
   return HttpResponse("{}".format(base))
 
