@@ -1,4 +1,5 @@
 import json
+import os
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -79,7 +80,16 @@ def filldb(request):
 
 
 def filldb2(request):
-  f = open("addfilms/static/addfilms/movies/2018/isle-of-dogs.json")
-  m = json.load(f)
-  f.close()
-  return HttpResponse("{}".format(m["director"]))
+  baza_filmow = []
+  katalogi = os.listdir('addfilms\\static\\addfilms\\movies')
+  for k in katalogi:
+    filmy = os.listdir('addfilms\\static\\addfilms\\movies\\{}'.format(k))
+    print(filmy)
+    for film in filmy:
+      f = open("addfilms\\static\\addfilms\\movies\\{}\\{}".format(k,film))
+      m = json.load(f)
+      ### name / year / runtime / categories / relese-date / director / storyline
+      baza_filmow.append(m['name'])
+      f.close()
+
+  return HttpResponse("Baza zawiera filmy: {}".format(baza_filmow))
