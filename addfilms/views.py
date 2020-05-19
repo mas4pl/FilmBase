@@ -86,11 +86,17 @@ def filldb2(request):
   katalogi = os.listdir('addfilms/static/addfilms/movies')
   for k in katalogi:
     filmy = os.listdir('addfilms/static/addfilms/movies/{}'.format(k))
+<<<<<<< HEAD
     #print(filmy)
     for film in filmy:
       film_data = []
       f = open("addfilms/static/addfilms/movies/{}/{}".format(k,film))
       #print("addfilms/static/addfilms/movies/{}/{}".format(k,film))
+=======
+    print(filmy)
+    for film in filmy:
+      f = open("addfilms/static/addfilms/movies/{}/{}".format(k,film))
+>>>>>>> 1e1b94f0b656dbbd9a06a07fa021c531759350fe
       m = json.load(f)
       #print(m)
       ### name / year / runtime / categories / relese-date / director / storyline
