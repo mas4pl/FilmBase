@@ -1,0 +1,23 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="database">
+  <title>FilmBase</title>
+</head>
+
+<body style="background-color: black; color: gold">
+
+  <H1> Lista filmów zawiera dane w nasrępującej kolejności :</H1>
+  <H2> Tytuł,   Rok,   Rerzyser,   Gatunek/Gatunki </H2>
+  {% if baza_filmow %}
+    <ul>
+    {% for film in baza_filmow %}
+      <li><a herf="/addfilms{{ film.id }}/">{{film}}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p> No addfilms are avalaible. </p>
+  {% endif %}
+
+</body>
+</html>

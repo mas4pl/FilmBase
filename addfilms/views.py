@@ -4,8 +4,10 @@ import os
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from django.template import loader
 from .forms import LoginFrom
 from .models import Movie
+
 
 def user_login(request):
   if request.method == 'POST':
@@ -81,15 +83,30 @@ def filldb(request):
 
 def filldb2(request):
   baza_filmow = []
-  katalogi = os.listdir('addfilms\\static\\addfilms\\movies')
+  katalogi = os.listdir('addfilms/static/addfilms/movies')
   for k in katalogi:
-    filmy = os.listdir('addfilms\\static\\addfilms\\movies\\{}'.format(k))
-    print(filmy)
+    filmy = os.listdir('addfilms/static/addfilms/movies/{}'.format(k))
+    #print(filmy)
     for film in filmy:
-      f = open("addfilms\\static\\addfilms\\movies\\{}\\{}".format(k,film))
+      film_data = []
+      f = open("addfilms/static/addfilms/movies/{}/{}".format(k,film))
+      #print("addfilms/static/addfilms/movies/{}/{}".format(k,film))
       m = json.load(f)
+      #print(m)
       ### name / year / runtime / categories / relese-date / director / storyline
-      baza_filmow.append(m['name'])
+      film_data.append(m['name'])
+      film_data.append(m['year'])
+      film_data.append(m['director'])
+      if 'genre' in m:
+        film_data.append(m['genre'])
+      if 'categories' in m:
+        film_data.append(m['categories'])
+      baza_filmow.append(film_data)
       f.close()
 
-  return HttpResponse("Baza zawiera filmy: {}".format(baza_filmow))
+      template = loader.get_template('addfilms/baza_filmow.html')
+      context = {
+        'baza_filmow': baza_filmow,
+      }
+
+  return HttpResponse(template.render(context, request))
