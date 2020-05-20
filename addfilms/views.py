@@ -80,7 +80,6 @@ def filldb(request):
   #return HttpResponse("kiedys to moze bedzie baza filmow :)")
 
 
-
 def filldb2(request):
   baza_filmow = []
   katalogi = os.listdir('addfilms/static/addfilms/movies')
@@ -110,3 +109,22 @@ def filldb2(request):
       }
 
   return HttpResponse(template.render(context, request))
+
+
+def filldb3(request):
+  katalogi = os.listdir('addfilms/static/addfilms/movies')
+  for k in katalogi:
+    filmy = os.listdir('addfilms/static/addfilms/movies/{}'.format(k))
+    #print(filmy)
+    for film in filmy:
+      f = open("addfilms/static/addfilms/movies/{}/{}".format(k,film))
+      #print("addfilms/static/addfilms/movies/{}/{}".format(k,film))
+      m = json.load(f)
+
+      
+
+      #print(m)
+      ### name / year / runtime / categories / relese-date / director / storyline
+      f.close()
+
+  return HttpResponse("Films added..")
