@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.template import loader
 from .forms import LoginFrom
-from .models import Movie
+from .models import Movie, Genere
 
 
 def user_login(request):
@@ -121,7 +121,32 @@ def filldb3(request):
       #print("addfilms/static/addfilms/movies/{}/{}".format(k,film))
       m = json.load(f)
 
-      
+
+      if 'genre' in m:
+        for g in m['genre']:
+          g_serch = Genere.objects.filter(name=g)
+          if len(g_serch) > 0:
+            continue
+          else:
+            g_add = Genere(name=g)
+            g_add.save()
+      if 'categories' in m:
+        for c in m['categories']:
+          c_serch = Genere.objects.filter(name=c)
+          if len(c_serch) > 0:
+            continue
+          else:
+            c_add = Genere(name=c)
+            c_add.save()
+
+
+        m_serch = Movie.objects.filter(title=m['title'], year=m['year'], director=m['director'])
+        if len(m_serch) > 0:
+          continue
+        else:
+          m_add = Movie(title=m['title'], year=m['year'], director=m['director'])
+          m_add.save()
+
 
       #print(m)
       ### name / year / runtime / categories / relese-date / director / storyline
