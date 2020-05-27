@@ -122,32 +122,44 @@ def filldb3(request):
       m = json.load(f)
       print(m)
 
-
+      generes = []
       if 'genre' in m:
         for g in m['genre']:
           g = g.lower().strip()
           g_serch = Genere.objects.filter(name=g)
           if len(g_serch) > 0:
+            for gg in g_serch:
+              generes.append(gg)
             continue
           else:
             g_add = Genere(name=g)
             g_add.save()
+            generes.append(g_add)
+
       if 'categories' in m:
         for c in m['categories']:
           c = c.lower().strip()
           c_serch = Genere.objects.filter(name=c)
           if len(c_serch) > 0:
+            for cc in c_serch:
+              generes.append(cc)
             continue
           else:
             c_add = Genere(name=c)
             c_add.save()
+            generes.append(c_add)
 
+      print(generes)
 
       m_serch = Movie.objects.filter(title=m['name'], year=m['year'], director=m['director'])
       if len(m_serch) > 0:
+        #for g_ in generes:
+        #  m_serch[0].generes.add(g_)
         continue
       else:
         m_add = Movie(title=m['name'], year=m['year'], director=m['director'])
+        for g_ in generes:
+          m_add.generes.add(g_)
         m_add.save()
 
 
