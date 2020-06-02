@@ -12,7 +12,7 @@
   {% if baza_filmow %}
     <ul>
     {% for film in baza_filmow %}
-      <li><a herf="/addfilms{{ film.id }}/">{{film}}</a></li>
+      <li><a href="/addfilms{{ film.id }}/">{{film.title}},{{film.year}}</a></li>
     {% endfor %}
     </ul>
   {% else %}
