@@ -81,32 +81,12 @@ def filldb(request):
 
 
 def filldb2(request):
-  baza_filmow = []
-  katalogi = os.listdir('addfilms/static/addfilms/movies')
-  for k in katalogi:
-    filmy = os.listdir('addfilms/static/addfilms/movies/{}'.format(k))
-    #print(filmy)
-    for film in filmy:
-      film_data = []
-      f = open("addfilms/static/addfilms/movies/{}/{}".format(k,film))
-      #print("addfilms/static/addfilms/movies/{}/{}".format(k,film))
-      m = json.load(f)
-      #print(m)
-      ### name / year / runtime / categories / relese-date / director / storyline
-      film_data.append(m['name'])
-      film_data.append(m['year'])
-      film_data.append(m['director'])
-      if 'genre' in m:
-        film_data.append(m['genre'])
-      if 'categories' in m:
-        film_data.append(m['categories'])
-      baza_filmow.append(film_data)
-      f.close()
+  baza_filmow = Movie.objects.all()
 
-      template = loader.get_template('addfilms/baza_filmow.html')
-      context = {
-        'baza_filmow': baza_filmow,
-      }
+  template = loader.get_template('addfilms/baza_filmow.html')
+  context = {
+    'baza_filmow': baza_filmow,
+  }
 
   return HttpResponse(template.render(context, request))
 
@@ -153,8 +133,8 @@ def filldb3(request):
 
       m_serch = Movie.objects.filter(title=m['name'], year=m['year'], director=m['director'])
       if len(m_serch) > 0:
-        #for g_ in generes:
-        #  m_serch[0].generes.add(g_)
+        for g_ in generes:
+          m_serch[0].generes.add(g_)
         continue
       else:
         m_add = Movie(title=m['name'], year=m['year'], director=m['director'])
