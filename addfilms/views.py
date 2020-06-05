@@ -29,16 +29,20 @@ def user_login(request):
   return render(request, 'addfilms/login.html', {'form': form})
 
 def user_aut(request):
-  username = request.POST['username']
-  password = request.POST['password']
+  username = request.POST.get('username', False)
+  password = request.POST.get('password', False)
   user = authenticate(request, username=username, password=password)
   if user is not None:
     login(request, user)
     # Redirect to a success page.
-    print('zalogowano')
+    status = 'zalogowano'
   else:
     # Return an 'invalid login' error message.
-    print('nie_zalogowano')
+    status = 'nie_zalogowano'
+  print(status)
+  return HttpResponse("{}".format(status))
+
+
 
 def view_all(request):
   baza_filmow = Movie.objects.all()
