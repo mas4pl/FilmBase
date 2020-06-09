@@ -37,6 +37,14 @@ def user_login(request):
 
 
 def user_aut(request):
+  if request.user.is_authenticated:
+    # Do something for authenticated users.
+    status = 'zalogowano'
+  else:
+    # Do something for anonymous users.
+    status = 'nie zalogowano'
+
+  """
   username = request.POST.get('username', False)
   password = request.POST.get('password', False)
   user = authenticate(request, username=username, password=password)
@@ -47,6 +55,7 @@ def user_aut(request):
   else:
     # Return an 'invalid login' error message.
     status = 'nie_zalogowano'
+  """
   print(status)
   return HttpResponse("{}".format(status))
 
