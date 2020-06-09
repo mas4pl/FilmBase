@@ -8,6 +8,13 @@ from django.template import loader
 from .forms import LoginFrom
 from .models import Movie, Genere
 
+def home(request):
+  template = loader.get_template('addfilms/strona_startowa.html')
+  context = {
+
+  }
+
+  return HttpResponse(template.render(context, request))
 
 def user_login(request):
   if request.method == 'POST':
@@ -23,10 +30,11 @@ def user_login(request):
         else:
           return HttpResponse('Konto zablokowane.')
       else:
-        return HttpResponse('Nieprawidlowe daneuwierzytelniajace')
+        return HttpResponse('Nieprawidlowe dane uwierzytelniajace')
   else:
     form = LoginFrom()
   return render(request, 'addfilms/login.html', {'form': form})
+
 
 def user_aut(request):
   username = request.POST.get('username', False)
