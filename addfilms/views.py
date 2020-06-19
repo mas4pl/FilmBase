@@ -9,12 +9,18 @@ from .forms import LoginFrom
 from .models import Movie, Genere
 
 def home(request):
+  baza_filmow_rob = Movie.objects.all()
+  if len(baza_filmow_rob) <= 5:
+      last_films = baza_filmow_rob
+  else:
+      last_films = baza_filmow_rob[len(baza_filmow_rob)-5:]
   template = loader.get_template('addfilms/strona_startowa.html')
   context = {
-
+    'last_films': last_films,
   }
 
   return HttpResponse(template.render(context, request))
+
 
 def user_login(request):
   if request.method == 'POST':
@@ -59,6 +65,24 @@ def user_aut(request):
   print(status)
   return HttpResponse("{}".format(status))
 
+def add_user_films():
+    baza_filmow = Movie.objects.all()
+    
+
+    return HttpResponse
+
+def user_last_films(request):
+    baza_filmow_rob = Movie.objects.filter(users=user)
+    if len(baza_filmow_rob) <= 5:
+        user_last_films = baza_filmow_rob
+    else:
+        user_last_films = baza_filmow_rob[len(baza_filmow_rob)-5:]
+    template = loader.get_template('addfilms/user_profil.html')
+    context = {
+      'last_films': last_films,
+    }
+
+    return HttpResponse(template.render(context, request))
 
 
 def view_all(request):

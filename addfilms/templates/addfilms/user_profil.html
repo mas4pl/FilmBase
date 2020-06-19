@@ -6,23 +6,22 @@
   <title>FilmBase</title>
 </head>
 <body style="background-color: black; color: gold">
+
 {% load static %}
 <div style="text-align: center"><img src="{% static 'addfilms/FilmTape.png' %}" alt="Grafika nie może zostać wyświetlona"></div>
 
 <b><span style="font-size: xx-large; font-family: 'Courier New'"><p style="text-align: center">
-  Strona jest bazą filmów na której możesz tworzyć listy filmów obejżanych jak i filmów do obejżenia. Możesz również obejżanym filmom wystawiać oceny oraz komentarze. :)
+  Baza filmów urzytkownika :)
 </p></span></b>
 
-<div style="text-align: center"><a href="http://127.0.0.1:8000/addfilms/login/"><img src="{% static 'addfilms/Log_in.png' %}" alt="Błąd grafiki" style="border: 0"></a></div>
-<div style="text-align: center"><a href="C:\Users\dawid\OneDrive\Desktop\FilmBase-Sign_In.html"><img src="{% static 'addfilms/Sign_in.png' %}" alt="Błąd grafiki" style="border: 0"></a></div>
-
+<div style="text-align: center"><a href="http://127.0.0.1:8000/addfilms/cokolwiek_xD"><img src="{% static 'addfilms/dodaj_film.png' %}" alt="Błąd grafiki" style="border: 0"></a></div>
 
 <b><span style="font-size: xx-large; font-family: 'Courier New'"><p style="text-align: center">
-  5 ostatnio dodanych filmów :
+  Filmy urzytkownika :
 </p></span></b>
-{% if last_films %}
+{% if user_last_films %}
   <ul>
-  {% for film in last_films %}
+  {% for film in user_last_films %}
     <li><center>{{film.title}},{{film.year}}</center></li>
   {% endfor %}
   </ul>

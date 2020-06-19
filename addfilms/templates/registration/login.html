@@ -1,6 +1,21 @@
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+<!doctype html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="database">
+  <title>FilmBase</title>
+</head>
+
+<body style="background-color: black; color: gold">
+  {% load static %}
+  <div style="text-align: center"><img src="{% static 'addfilms/FilmTape.png' %}" alt="Grafika nie może zostać wyświetlona"></div>
+
+  <H1><center>Login</center></H1>
+  <form method="post"><center>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </center></form>
+
+</body>
+</html>
