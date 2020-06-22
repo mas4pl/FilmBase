@@ -7,4 +7,5 @@ urlpatterns = [
       path('filldb', views.filldb, name='filldb'),
       path('view_all', views.view_all, name='view_all'),
       path('user_aut', views.user_aut, name='user_aut'),
+      path('add_user_films', views.add_user_films, name='add_user_films'),
 ]

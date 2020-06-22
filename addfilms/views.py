@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.template import loader
 from .forms import LoginFrom
 from .models import Movie, Genere
+from django.contrib.auth.models import User
 
 def home(request):
   baza_filmow_rob = Movie.objects.all()
@@ -65,11 +66,12 @@ def user_aut(request):
   print(status)
   return HttpResponse("{}".format(status))
 
-def add_user_films():
-    baza_filmow = Movie.objects.all()
-    
-
-    return HttpResponse
+def add_user_films(request):
+    movies = Movie.objects.all()
+    users = User.objects.all()
+    # np. do pierwszego filmu dodaje pierwszego użytkownika..
+    movies[0].users.add(users[0])
+    return HttpResponse("Movie:{} User:{}".format(movies[0], users[0]))
 
 def user_last_films(request):
     baza_filmow_rob = Movie.objects.filter(users=user)
